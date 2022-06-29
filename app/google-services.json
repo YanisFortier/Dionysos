@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "508596878819",
+    "project_id": "dionysos-project",
+    "storage_bucket": "dionysos-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508596878819:android:71193615ca1736a4b7b4d6",
+        "android_client_info": {
+          "package_name": "com.yfortier.dionysos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508596878819-fnh1ntns0pb5se6bvr8clc7nhfik2f5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhpCz2Okjk9f8UoFlLWZq-7k6cZJjDgpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508596878819-fnh1ntns0pb5se6bvr8clc7nhfik2f5p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
