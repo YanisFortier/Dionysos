@@ -19,6 +19,7 @@
             app:menu="@menu/menu_creer_evenement"
             app:navigationIcon="@android:drawable/ic_menu_close_clear_cancel"
             app:title="Créer un évènement" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Note: A RecyclerView can also be used -->
