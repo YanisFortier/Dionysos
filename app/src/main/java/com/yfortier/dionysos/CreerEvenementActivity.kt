@@ -7,18 +7,21 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.application.recyclerviewproject.ParticipantAdapter
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.firestore.FirebaseFirestore
-import com.yfortier.dionysos.adapters.ParticipantAdapter
 import com.yfortier.dionysos.transverse.constante.DionysosConstante
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,6 +34,7 @@ class CreerEvenementActivity : AppCompatActivity() {
 	private lateinit var textInputDescriptionEvenement: TextInputEditText
 	private lateinit var chipGroup: ChipGroup
 	private lateinit var boutonMenuAjouter: MenuItem
+	private lateinit var boutonAjouterParticipant: MaterialButton
 
 	private val listeParticipants: ArrayList<String> = ArrayList()
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +43,7 @@ class CreerEvenementActivity : AppCompatActivity() {
 		textInputDatePicker = findViewById(R.id.textInputDatePicker)
 		textInputNomEvenement = findViewById(R.id.textInputNomEvenement)
 		textInputDescriptionEvenement = findViewById(R.id.textInputDescriptionEvenement)
+		boutonAjouterParticipant = findViewById(R.id.boutonAjouterParticipant)
 		chipGroup = findViewById(R.id.chipGroup)
 		boutonMenuAjouter = findViewById<MaterialToolbar>(R.id.topAppBar).menu.findItem(R.id.boutonMenuAjouter)
 		boutonMenuAjouter.isVisible = false
@@ -77,7 +82,7 @@ class CreerEvenementActivity : AppCompatActivity() {
 	private fun gererListeParticipants() {
 		lateinit var recyclerViewAdapter: RecyclerView.Adapter<*>
 
-		val boutonAjouterParticipant = findViewById<Button>(R.id.buttonAjouterParticipant)
+		val boutonAjouterParticipant = findViewById<Button>(R.id.boutonAjouterParticipant)
 		val textInputParticipant = findViewById<EditText>(R.id.textInputParticipant)
 		boutonAjouterParticipant.setOnClickListener {
 			if (textInputParticipant.text.toString().isNotEmpty()) {
@@ -86,11 +91,13 @@ class CreerEvenementActivity : AppCompatActivity() {
 				textInputParticipant.text.clear()
 				recyclerViewAdapter.notifyItemInserted(listeParticipants.size)
 			}
-
+			verifierSiEvenementValide()
 		}
+
+
+
 		val recyclerViewLayoutManager = LinearLayoutManager(this)
 		recyclerViewAdapter = ParticipantAdapter(listeParticipants)
-
 		val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
 		recyclerView.setHasFixedSize(false)
 		recyclerView.layoutManager = recyclerViewLayoutManager
@@ -140,7 +147,8 @@ class CreerEvenementActivity : AppCompatActivity() {
 		val nomValide = textInputNomEvenement.text.toString().isNotEmpty()
 		val dateValide = textInputDatePicker.text.toString().isNotEmpty()
 		val descriptionValide = textInputDescriptionEvenement.text.toString().isNotEmpty()
-		val estEvenementValide = nomValide && descriptionValide && categorieValide && dateValide
+		val listeParticipantValide = listeParticipants.isNotEmpty()
+		val estEvenementValide = nomValide && descriptionValide && categorieValide && dateValide && listeParticipantValide
 		boutonMenuAjouter.isVisible = estEvenementValide
 	}
 

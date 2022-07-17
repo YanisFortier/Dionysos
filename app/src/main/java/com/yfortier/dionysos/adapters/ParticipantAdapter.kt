@@ -1,43 +1,73 @@
-package com.yfortier.dionysos.adapters
+package com.example.application.recyclerviewproject
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yfortier.dionysos.R
-import com.yfortier.dionysos.composants.ParticipantItem
+import org.w3c.dom.Text
 
-class ParticipantAdapter(participantList: ArrayList<String>) : RecyclerView.Adapter<ParticipantAdapter.ParticipantViewHolder>() {
-	private val listeParticipants: ArrayList<String>
+class ParticipantAdapter(listeParticipant: ArrayList<String>) : RecyclerView.Adapter<ParticipantAdapter.ExampleViewHolder>() {
+	private val mExampleList: ArrayList<String>
+	private var mListener: OnItemClickListener? = null
 
-	class ParticipantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		var textViewNomParticipant: TextView
+	interface OnItemClickListener {
+		fun onItemClick(position: Int)
+		fun onDeleteClick(position: Int)
+	}
+
+	fun setOnItemClickListener(listener: OnItemClickListener?) {
+		mListener = listener
+	}
+
+	class ExampleViewHolder(itemView: View, listener: OnItemClickListener?) : RecyclerView.ViewHolder(itemView) {
+
+		var mTextView1: TextView
+		var mDeleteImage: ImageView
 
 		init {
-			textViewNomParticipant = itemView.findViewById(R.id.textViewNomParticipant)
+			mTextView1 = itemView.findViewById(R.id.textViewNomParticipant)
+			mDeleteImage = itemView.findViewById(R.id.boutonSupprimerParticipant)
+			itemView.setOnClickListener {
+				if (listener != null) {
+					val position = adapterPosition
+					if (position != RecyclerView.NO_POSITION) {
+						listener.onItemClick(position)
+					}
+				}
+			}
+			mDeleteImage.setOnClickListener {
+				if (listener != null) {
+					val position = adapterPosition
+					if (position != RecyclerView.NO_POSITION) {
+						listener.onDeleteClick(position)
+					}
+				}
+			}
 		}
+
 	}
 
 	override fun onCreateViewHolder(
 			parent: ViewGroup,
 			viewType: Int,
-	): ParticipantViewHolder {
+	): ExampleViewHolder {
 		val v: View = LayoutInflater.from(parent.context).inflate(R.layout.participant_item, parent, false)
-		return ParticipantViewHolder(v)
+		return ExampleViewHolder(v, mListener)
 	}
 
-	override fun onBindViewHolder(holder: ParticipantViewHolder, position: Int) {
-		val currentItem: String = listeParticipants[position]
-		holder.textViewNomParticipant.text = currentItem
+	override fun onBindViewHolder(holder: ExampleViewHolder, position: Int) {
+		val currentItem: String = mExampleList[position]
+		holder.mTextView1.text = currentItem
 	}
 
 	override fun getItemCount(): Int {
-		return listeParticipants.size
+		return mExampleList.size
 	}
 
-
 	init {
-		listeParticipants = participantList
+		mExampleList = listeParticipant
 	}
 }

@@ -234,7 +234,7 @@
                     <com.google.android.material.button.MaterialButton
                         app:icon="@android:drawable/ic_input_add"
                         style="@style/Widget.MaterialComponents.Button.Icon"
-                        android:id="@+id/buttonAjouterParticipant"
+                        android:id="@+id/boutonAjouterParticipant"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
