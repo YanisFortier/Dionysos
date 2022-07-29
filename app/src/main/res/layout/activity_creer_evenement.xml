@@ -133,48 +133,42 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Soirée"
-                        app:chipIcon="@android:drawable/ic_dialog_email" />
+                        android:text="🎉 Soirée"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipVoyage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Voyage"
-                        app:chipIcon="@android:drawable/ic_input_get" />
+                        android:text="🗺️ Voyage"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipAnniversaire"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Mariage"
-                        app:chipIcon="@android:drawable/ic_popup_disk_full" />
+                        android:text="💒 Mariage"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipCouple"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Date"
-                        app:chipIcon="@android:drawable/ic_lock_idle_alarm" />
+                        android:text="💏 Date"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipAirBNB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Anniversaire"
-                        app:chipIcon="@android:drawable/ic_btn_speak_now" />
+                        android:text="🎂 Anniversaire"/>
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipAutre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="Autre"
-                        app:chipIcon="@android:drawable/ic_menu_set_as" />
+                        android:text="✨ Autre"/>
                 </com.google.android.material.chip.ChipGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

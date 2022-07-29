@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+
     tools:context=".ChoixActivity">
 
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layoutCards"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Activity Choix" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_choix"
