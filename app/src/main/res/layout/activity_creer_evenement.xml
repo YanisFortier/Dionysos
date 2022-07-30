@@ -26,8 +26,9 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -52,7 +53,7 @@
                     android:id="@+id/textInputNomEvenement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textAutoCorrect"
+                    android:inputType="textAutoCorrect|textCapWords"
                     android:singleLine="true"
 
                     />
@@ -66,7 +67,7 @@
                 android:layout_marginTop="16dp"
                 android:hint="Description"
                 app:counterEnabled="true"
-                app:counterMaxLength="20"
+                app:counterMaxLength="30"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textFieldNom"
@@ -76,7 +77,8 @@
                     android:id="@+id/textInputDescriptionEvenement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:inputType="textAutoCorrect|textCapSentences"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -133,55 +135,56 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="🎉 Soirée"/>
+                        android:text="🎉 Soirée" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipVoyage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="🗺️ Voyage"/>
+                        android:text="🗺️ Voyage" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipAnniversaire"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="💒 Mariage"/>
+                        android:text="💒 Mariage" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipCouple"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="💏 Date"/>
+                        android:text="💏 Date" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipAirBNB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="🎂 Anniversaire"/>
+                        android:text="🎂 Anniversaire" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chipAutre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checkable="true"
-                        android:text="✨ Autre"/>
+                        android:text="✨ Autre" />
                 </com.google.android.material.chip.ChipGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutParticipants"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/border"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutCategories">
+                app:layout_constraintTop_toBottomOf="@id/layoutCategories">
 
+                <!-- Participants -->
                 <TextView
                     android:id="@+id/textViewParticipants"
                     android:layout_width="match_parent"
@@ -192,50 +195,56 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/layoutParticipants" />
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/layoutListeParticipants"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="16dp"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupParticipants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textViewParticipants">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scrollbars="vertical" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layoutListeParticipants">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/textInputParticipant"
-                        android:layout_width="0dp"
-                        android:layout_height="56dp"
-                        android:layout_weight="1"
-                        android:inputType="textCapWords"
-                        android:textAlignment="center"
-                        android:maxLength="20"
-                        android:hint="Votre nom"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        app:icon="@android:drawable/ic_input_add"
-                        style="@style/Widget.MaterialComponents.Button.Icon"
-                        android:id="@+id/boutonAjouterParticipant"
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipOriginal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="😎 Rajoute toi et tes amis !" />
 
-                        android:text="Ajouter" />
+                </com.google.android.material.chip.ChipGroup>
 
-                </LinearLayout>
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:id="@+id/layoutAjouterParticipant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/textInputParticipant"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:hint="Ton prénom"
+                    android:inputType="textCapWords"
+                    android:maxLength="20"
+                    android:textAlignment="center" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/boutonAjouterParticipant"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ajouter"
+
+                    app:icon="@android:drawable/ic_input_add" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

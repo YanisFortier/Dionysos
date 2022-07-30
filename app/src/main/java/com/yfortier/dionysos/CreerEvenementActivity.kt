@@ -7,15 +7,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.application.recyclerviewproject.ParticipantAdapter
+import androidx.core.view.children
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
@@ -31,8 +25,10 @@ class CreerEvenementActivity : AppCompatActivity() {
 	// FindViewById
 	private lateinit var textInputDatePicker: TextInputEditText
 	private lateinit var textInputNomEvenement: TextInputEditText
+	private lateinit var textInputParticipant: TextInputEditText
 	private lateinit var textInputDescriptionEvenement: TextInputEditText
 	private lateinit var chipGroup: ChipGroup
+	private lateinit var chipGroupParticipants: ChipGroup
 	private lateinit var boutonMenuAjouter: MenuItem
 	private lateinit var boutonAjouterParticipant: MaterialButton
 
@@ -42,17 +38,53 @@ class CreerEvenementActivity : AppCompatActivity() {
 		setContentView(R.layout.activity_creer_evenement)
 		textInputDatePicker = findViewById(R.id.textInputDatePicker)
 		textInputNomEvenement = findViewById(R.id.textInputNomEvenement)
+		textInputParticipant = findViewById(R.id.textInputParticipant)
 		textInputDescriptionEvenement = findViewById(R.id.textInputDescriptionEvenement)
 		boutonAjouterParticipant = findViewById(R.id.boutonAjouterParticipant)
 		chipGroup = findViewById(R.id.chipGroup)
+		chipGroupParticipants = findViewById(R.id.chipGroupParticipants)
 		boutonMenuAjouter = findViewById<MaterialToolbar>(R.id.topAppBar).menu.findItem(R.id.boutonMenuAjouter)
 		boutonMenuAjouter.isVisible = false
 
 		gererDatePicker()
 		gererAffichageAjouterEvenement()
-		gererListeParticipants()
+		activerAjoutParticipant()
 	}
 
+	private fun activerSuppressionParticipants(chip: Chip) {
+		chip.setOnCloseIconClickListener {
+			var index = 0
+			for (children in chipGroupParticipants.children) {
+				if (children.id == chip.id) {
+					listeParticipants.removeAt(index)
+					chipGroupParticipants.removeView(it)
+					verifierSiEvenementValide()
+				}
+				index++
+			}
+		}
+	}
+
+	private fun activerAjoutParticipant() {
+		this.boutonAjouterParticipant.setOnClickListener {
+			this.chipGroupParticipants.removeView(findViewById(R.id.chipOriginal))
+			val prenomParticipant = textInputParticipant.text.toString().trim()
+			if (prenomParticipant.isNotEmpty()) {
+				val chip = Chip(this)
+				val emojiRandom = this.resources.getStringArray(R.array.emojis).random()
+				chip.text = getString(R.string.ajout_participant, emojiRandom, prenomParticipant)
+				chip.isCloseIconVisible = true
+
+				activerSuppressionParticipants(chip)
+				textInputParticipant.setText("")
+				textInputParticipant.hint = "Participant"
+
+				this.chipGroupParticipants.addView(chip)
+				listeParticipants.add(prenomParticipant)
+				verifierSiEvenementValide()
+			}
+		}
+	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		if (item.itemId == R.id.boutonMenuAjouter) {
@@ -79,32 +111,6 @@ class CreerEvenementActivity : AppCompatActivity() {
 		}
 	}
 
-	private fun gererListeParticipants() {
-		lateinit var recyclerViewAdapter: RecyclerView.Adapter<*>
-
-		val boutonAjouterParticipant = findViewById<Button>(R.id.boutonAjouterParticipant)
-		val textInputParticipant = findViewById<EditText>(R.id.textInputParticipant)
-		boutonAjouterParticipant.setOnClickListener {
-			if (textInputParticipant.text.toString().isNotEmpty()) {
-				listeParticipants.add(textInputParticipant.text.toString())
-				textInputParticipant.hint = "Participant"
-				textInputParticipant.text.clear()
-				recyclerViewAdapter.notifyItemInserted(listeParticipants.size)
-			}
-			verifierSiEvenementValide()
-		}
-
-
-
-		val recyclerViewLayoutManager = LinearLayoutManager(this)
-		recyclerViewAdapter = ParticipantAdapter(listeParticipants)
-		val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-		recyclerView.setHasFixedSize(false)
-		recyclerView.layoutManager = recyclerViewLayoutManager
-		recyclerView.adapter = recyclerViewAdapter
-
-
-	}
 
 	private fun gererAffichageAjouterEvenement() {        // DatePicker
 		textInputDatePicker.addTextChangedListener(object : TextWatcher {

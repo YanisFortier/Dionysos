@@ -37,7 +37,7 @@ class ChoixActivity : AppCompatActivity() {
 				for (evenement in result) {
 					var nomEvenement = "${evenement.data.get("Nom")}"
 					var descEvenement = "${evenement.data.get("Description")}"
-					var categorieEvenement = "${evenement.data.get("Categorie")}"
+					val categorieEvenement = "${evenement.data.get("Categorie")}"
 
                     nomEvenement = nomEvenement.substring(0,1).uppercase() + nomEvenement.substring(1).lowercase();
                     descEvenement = descEvenement.substring(0,1).uppercase() + descEvenement.substring(1).lowercase();
@@ -67,6 +67,10 @@ class ChoixActivity : AppCompatActivity() {
         cardView.layoutParams = layoutParams
         cardView.useCompatPadding = true
 		cardView.strokeColor = Color.WHITE
+	    cardView.isClickable = true
+	    cardView.isFocusable = true
+
+	    cardView.setOnClickListener { startActivity(Intent(applicationContext, MainActivity::class.java)) }
         return cardView
     }
 
